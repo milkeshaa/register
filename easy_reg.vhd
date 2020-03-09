@@ -48,10 +48,17 @@ BEGIN
 			when "100" => qq <= qq(1 downto 0) & qq(9 downto 2);
 			when "101" => qq <= a xor reverse_any_vector(b);
 			when "110" => qq <= b(5 downto 1) & b(9 downto 5);	
-			when "111" => qq <= (others => 'Z');
 			when others => qq <= qq;		
 	 	end case; 
 	end if;
  END PROCESS process0_proc;
-	q <= qq;
+
+ process (mode, qq) 
+ begin
+	if (mode = "111") then
+		q <= (others => 'Z');
+	else 
+		q <= qq;
+	end if;
+ end process; 
 END reg_arch; 
